@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Check } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
 const plans = [
@@ -52,12 +52,14 @@ export default function Pricing() {
           {plans.map((plan) => (
             <Card
               key={plan.title}
-              className={plan.popular ? "border-primary border-1 shadow-lg" : "bg-muted border-1 border-muted"}
+              className={
+                plan.popular
+                  ? "border-primary border shadow-lg"
+                  : "bg-muted border border-muted"
+              }
             >
               <CardContent className="p-8">
-                {plan.popular && (
-                  <Badge className="mb-4">Most Popular</Badge>
-                )}
+                {plan.popular && <Badge className="mb-4">Most Popular</Badge>}
 
                 <h3 className="text-xl font-semibold">{plan.title}</h3>
 
@@ -66,24 +68,22 @@ export default function Pricing() {
                 </p>
 
                 <div className="mt-6">
-                  <span className="text-4xl font-bold">
-                    {plan.price}
-                  </span>
+                  <span className="text-4xl font-bold">{plan.price}</span>
 
                   {plan.price !== "$0" && (
-                    <span className="text-muted-foreground">
-                      /month
-                    </span>
+                    <span className="text-muted-foreground">/month</span>
                   )}
                 </div>
 
-                <Button
-                  className="mt-6 w-full"
-                  variant={plan.popular ? "default" : "outline"}
-                  asChild
+                <Link
+                  href="/register"
+                  className={buttonVariants({
+                    variant: plan.popular ? "default" : "outline",
+                    className: "mt-6 w-full",
+                  })}
                 >
-                  <Link href="/register">Get started</Link>
-                </Button>
+                  Get started
+                </Link>
 
                 <ul className="mt-8 space-y-3">
                   {plan.features.map((feature) => (
